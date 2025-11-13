@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LAN Match</title>
-  <link rel="stylesheet" href="css/style.css" />
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>LAN Match</title>
+   <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-  <div class="container">
-    <div class="card">
-      <h1>LAN Match</h1>
-      <p class="desc">Connect two PCs on the same LAN. One hosts, one joins.</p>
+   <div class="container">
+      <div class="card">
+         <h1>LAN Match</h1>
+         <p class="desc">Connect two PCs on the same LAN. One hosts, one joins.</p>
 
-      <div class="buttons">
-        <button id="hostBtn">Host</button>
-        <button id="joinBtn">Join</button>
+         <div class="buttons">
+            <button id="hostBtn">Host</button>
+            <button id="joinBtn">Join</button>
+         </div>
+
+         <div class="status">
+            Status: <span id="statusText">Idle</span>
+         </div>
+
+         <div class="log" id="logBox"></div>
+         <button id="themeToggle" class="theme-toggle">🌙 Dark Mode</button>
       </div>
+   </div>
 
-      <div class="status">
-        Status: <span id="statusText">Idle</span>
-      </div>
-
-      <div class="log" id="logBox"></div>
-    </div>
-  </div>
+   <script src="js/themebutton.js"></script>
+   <script src="js/matching.js"></script>
 
 </body>
+
 </html>
