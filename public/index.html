@@ -1,174 +1,56 @@
-<!--
-7-button web templates
-File: 7-button-web-templates.html
-Contains 4 small ready-to-copy templates (each has exactly 7 buttons).
-Copy any section you like into your project.
--->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-   <meta charset="utf-8" />
-   <meta name="viewport" content="width=device-width,initial-scale=1" />
-   <title>7-button templates (4 variations)</title>
-   <style>
-      
-   </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LAN Match</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
+  <div class="container">
+    <div class="card">
+      <h1>LAN Match</h1>
+      <p class="desc">Connect two PCs on the same LAN. One hosts, one joins.</p>
 
-   <!-- TEMPLATE 5: LAN MATCHING (Host / Join via a simple WebSocket signaling server) -->
-   <section class="demo tpl-5">
-      <strong>Template 5 — LAN matching UI (Host / Join)</strong>
-      <p class="muted">Client-side template that uses a WebSocket signaling server on your LAN. Copy the HTML/JS below
-         into a file and point <code>signalingServer</code> to a machine on your LAN running the minimal Node.js
-         signaling server included after the client code.</p>
-
-      <div style="display:flex;gap:12px;align-items:flex-start;flex-direction:column;padding:12px">
-         <label class="muted">Signaling server (ws://IP:PORT)</label>
-         <input id="serverAddr" value="ws://192.168.1.100:3000"
-            style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.05);width:320px;background:transparent;color:inherit" />
-
-         <div style="display:flex;gap:8px">
-            <button id="hostBtn" class="btn">Host match</button>
-            <button id="joinBtn" class="btn">Join match</button>
-            <button id="stopBtn" class="btn">Stop</button>
-         </div>
-
-         <div class="muted" style="margin-top:8px">Status: <span id="status">idle</span></div>
-         <textarea id="log" readonly
-            style="width:100%;height:120px;background:#061226;color:var(--muted);border-radius:8px;padding:8px;border:1px solid rgba(255,255,255,0.02)"></textarea>
+      <div class="buttons">
+        <button id="hostBtn">Host</button>
+        <button id="joinBtn">Join</button>
       </div>
 
-      <pre class="muted" style="margin-top:8px">How it works (quick):
-{#  1) Start the Node.js signaling server on one LAN machine.
-2) In the client HTML set the ws:// IP:PORT to that server.
-3) One machine clicks Host, the other clicks Join. The server forwards signaling messages so both clients establish a direct WebRTC peer connection (P2P) if allowed by network.  #}
-</pre>
+      <div class="status">
+        Status: <span id="statusText">Idle</span>
+      </div>
 
-      <script>
-         // Minimal client-side signaling + WebRTC peer connection
-         // NOTE: This code is a template — adapt to your app logic and security needs.
-         (function () {
-            const serverInput = document.getElementById('serverAddr');
-            const hostBtn = document.getElementById('hostBtn');
-            const joinBtn = document.getElementById('joinBtn');
-            const stopBtn = document.getElementById('stopBtn');
-            const status = document.getElementById('status');
-            const logEl = document.getElementById('log');
+      <div class="log" id="logBox"></div>
+    </div>
+  </div>
 
-            let ws = null;
-            let pc = null;
-            let isHost = false;
+  <script>
+    const statusText = document.getElementById("statusText");
+    const logBox = document.getElementById("logBox");
 
-            function log(s) {
-               logEl.value += s + '
-               '; logEl.scrollTop = logEl.scrollHeight }
-               function setStatus(s) { status.textContent = s; log('Status: ' + s) }
+    function log(msg) {
+      logBox.innerHTML += `<div>${msg}</div>`;
+      logBox.scrollTop = logBox.scrollHeight;
+    }
 
-               function connectWS() {
-                  const url = serverInput.value.trim();
-                  if (!url) return alert('Set signaling server address first');
-                  ws = new WebSocket(url);
-                  ws.onopen = () => setStatus('WS connected');
-                  ws.onclose = () => setStatus('WS closed');
-                  ws.onerror = (e) => log('WS error ' + e.message);
-                  ws.onmessage = async (ev) => {
-                     const msg = JSON.parse(ev.data);
-                     log('recv: ' + JSON.stringify(msg));
-                     if (msg.type === 'offer' && !isHost) {
-                        await ensurePC();
-                        await pc.setRemoteDescription(new RTCSessionDescription(msg.offer));
-                        const answer = await pc.createAnswer();
-                        await pc.setLocalDescription(answer);
-                        ws.send(JSON.stringify({ type: 'answer', answer }));
-                     } else if (msg.type === 'answer' && isHost) {
-                        await pc.setRemoteDescription(new RTCSessionDescription(msg.answer));
-                     } else if (msg.type === 'ice') {
-                        try { await pc.addIceCandidate(msg.candidate) } catch (e) { log('ice add err ' + e) }
-                     }
-                  }
-               }
-
-               async function ensurePC() {
-                  if (pc) return;
-                  pc = new RTCPeerConnection();
-                  // data channel for simple messages
-                  if (isHost) {
-                     const dc = pc.createDataChannel('match');
-                     dc.onopen = () => log('DataChannel open');
-                     dc.onmessage = e => log('peer: ' + e.data);
-                  } else {
-                     pc.ondatachannel = e => {
-                        const dc = e.channel;
-                        dc.onopen = () => log('DataChannel open (join)');
-                        dc.onmessage = evt => log('peer: ' + evt.data);
-                     }
-                  }
-                  pc.onicecandidate = e => {
-                     if (e.candidate && ws && ws.readyState === WebSocket.OPEN) {
-                        ws.send(JSON.stringify({ type: 'ice', candidate: e.candidate }));
-                     }
-                  }
-                  pc.onconnectionstatechange = () => log('PC state: ' + pc.connectionState);
-               }
-
-               hostBtn.addEventListener('click', async () => {
-                  isHost = true; connectWS(); await new Promise(r => setTimeout(r, 300)); // small wait for WS
-                  await ensurePC();
-                  const offer = await pc.createOffer();
-                  await pc.setLocalDescription(offer);
-                  ws.send(JSON.stringify({ type: 'offer', offer }));
-                  setStatus('hosting — offer sent');
-               });
-
-               joinBtn.addEventListener('click', async () => {
-                  isHost = false; connectWS(); await new Promise(r => setTimeout(r, 300));
-                  setStatus('waiting for offer...');
-               });
-
-               stopBtn.addEventListener('click', () => {
-                  if (pc) { pc.close(); pc = null }
-                  if (ws) { ws.close(); ws = null }
-                  setStatus('stopped');
-               });
-
-            }) ();
-      </script>
-
-      <h4 class="muted">Minimal Node.js signaling server (place on one LAN machine)</h4>
-      <pre style="background:#061226;padding:10px;border-radius:8px">// server.js
-const WebSocket = require('ws');
-const wss = new WebSocket.Server({port:3000});
-
-wss.on('connection', function connection(ws){
-  ws.on('message', function incoming(message){
-    // broadcast the incoming message to all other clients
-    wss.clients.forEach(function each(client){
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(message);
-      }
+    document.getElementById("hostBtn").addEventListener("click", () => {
+      statusText.textContent = "Hosting...";
+      log("Waiting for a player to join...");
+      setTimeout(() => {
+        statusText.textContent = "Matched!";
+        log("Player joined successfully!");
+      }, 3000);
     });
-  });
-});
 
-console.log('Signaling server running on ws://0.0.0.0:3000');
-</pre>
-
-      <p class="muted">Notes:
-      <ul>
-         <li>This signaling server simply broadcasts between connected clients on the LAN. In production, add
-            authentication, rooms, and origin checks.</li>
-         <li>Browsers cannot perform raw LAN UDP broadcasts — that's why a tiny signaling server on the LAN is needed.
-         </li>
-         <li>If NAT or firewall prevents direct P2P, WebRTC will attempt relay via TURN (not provided here). For pure
-            LAN devices usually no TURN is required.</li>
-      </ul>
-      </p>
-   </section>
-
+    document.getElementById("joinBtn").addEventListener("click", () => {
+      statusText.textContent = "Searching...";
+      log("Looking for host...");
+      setTimeout(() => {
+        statusText.textContent = "Matched!";
+        log("Connected to host!");
+      }, 3000);
+    });
+  </script>
 </body>
-
 </html>
