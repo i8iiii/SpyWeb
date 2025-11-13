@@ -1,0 +1,422 @@
+<!--
+7-button web templates
+File: 7-button-web-templates.html
+Contains 4 small ready-to-copy templates (each has exactly 7 buttons).
+Copy any section you like into your project.
+-->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width,initial-scale=1" />
+   <title>7-button templates (4 variations)</title>
+   <style>
+      :root {
+         --bg: #0f1724;
+         --card: #0b1220;
+         --accent: #4f46e5;
+         --muted: #94a3b8
+      }
+
+      body {
+         font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+         margin: 0;
+         background: linear-gradient(180deg, #071025 0%, #071b2b 100%);
+         color: #e6eef8
+      }
+
+      h1 {
+         font-size: 18px;
+         margin: 16px 0;
+         text-align: center
+      }
+
+      main {
+         max-width: 1100px;
+         margin: 18px auto;
+         padding: 18px
+      }
+
+      .demo {
+         background: rgba(255, 255, 255, 0.02);
+         border-radius: 12px;
+         padding: 18px;
+         margin: 16px 0
+      }
+
+      .row {
+         display: flex;
+         gap: 14px;
+         flex-wrap: wrap;
+         align-items: center
+      }
+
+      /* ---------- Template 1: Simple centered bar ---------- */
+      .tpl-1 {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: 14px;
+         padding: 28px
+      }
+
+      .tpl-1 .btn {
+         padding: 10px 18px;
+         border-radius: 8px;
+         border: 1px solid rgba(255, 255, 255, 0.06);
+         background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+         cursor: pointer
+      }
+
+      .btn:active {
+         transform: translateY(1px)
+      }
+
+      /* ---------- Template 2: Modern rounded with icons ---------- */
+      .tpl-2 {
+         display: flex;
+         flex-direction: column;
+         gap: 14px;
+         align-items: center;
+         padding: 28px
+      }
+
+      .pill-row {
+         display: flex;
+         gap: 12px;
+         flex-wrap: wrap
+      }
+
+      .pill {
+         display: inline-flex;
+         align-items: center;
+         gap: 10px;
+         padding: 10px 14px;
+         border-radius: 999px;
+         border: none;
+         background: rgba(255, 255, 255, 0.03);
+         cursor: pointer
+      }
+
+      .pill .dot {
+         width: 10px;
+         height: 10px;
+         border-radius: 50%;
+         background: var(--accent);
+         display: inline-block
+      }
+
+      /* ---------- Template 3: Vertical sidebar ---------- */
+      .tpl-3 {
+         display: flex;
+         gap: 20px;
+         padding: 12px
+      }
+
+      .sidebar {
+         width: 180px;
+         background: linear-gradient(180deg, #071226, #092035);
+         padding: 18px;
+         border-radius: 12px
+      }
+
+      .sidebar button {
+         display: block;
+         width: 100%;
+         text-align: left;
+         padding: 10px 12px;
+         margin-bottom: 8px;
+         border-radius: 8px;
+         border: none;
+         background: transparent;
+         color: var(--muted);
+         cursor: pointer
+      }
+
+      .sidebar button:hover {
+         color: #fff;
+         background: rgba(255, 255, 255, 0.03)
+      }
+
+      .content {
+         flex: 1;
+         padding: 18px
+      }
+
+      /* ---------- Template 4: Grid of cards ---------- */
+      .tpl-4 .grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+         gap: 12px
+      }
+
+      .card-btn {
+         padding: 16px;
+         border-radius: 12px;
+         background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+         border: 1px solid rgba(255, 255, 255, 0.03);
+         cursor: pointer
+      }
+
+      /* small helper */
+      .muted {
+         color: var(--muted);
+         font-size: 13px
+      }
+
+      .kbd {
+         background: #061226;
+         padding: 2px 6px;
+         border-radius: 6px;
+         font-size: 12px;
+         color: var(--muted)
+      }
+
+      footer {
+         font-size: 13px;
+         color: var(--muted);
+         text-align: center;
+         margin: 8px 0
+      }
+
+      /* responsive */
+      @media (max-width:700px) {
+         .tpl-3 {
+            flex-direction: column
+         }
+
+         .sidebar {
+            width: 100%
+         }
+      }
+   </style>
+</head>
+
+<body>
+   <main>
+      <h1>4 free templates — each with 7 buttons. Copy any section you like.</h1>
+
+      <!-- TEMPLATE 1: Centered horizontal bar -->
+      <section class="demo tpl-1">
+         <strong>Template 1 — centered bar (simple)</strong>
+         <p class="muted">A minimalist centered bar of 7 buttons. Good for simple landing pages.</p>
+         <div class="row" style="justify-content:center;flex-wrap:wrap;margin-top:8px">
+            <button class="btn">Home</button>
+            <button class="btn">About</button>
+            <button class="btn">Features</button>
+            <button class="btn">Pricing</button>
+            <button class="btn">Docs</button>
+            <button class="btn">Blog</button>
+            <button class="btn">Contact</button>
+         </div>
+      </section>
+
+      <!-- TEMPLATE 2: Modern rounded pills -->
+      <section class="demo tpl-2">
+         <strong>Template 2 — rounded pills (modern)</strong>
+         <p class="muted">Pill-shaped buttons with small leading dots. Works as a menu or action row.</p>
+         <div class="pill-row">
+            <button class="pill"><span class="dot"></span> Dashboard</button>
+            <button class="pill"><span class="dot"></span> Projects</button>
+            <button class="pill"><span class="dot"></span> Tasks</button>
+            <button class="pill"><span class="dot"></span> Calendar</button>
+            <button class="pill"><span class="dot"></span> Files</button>
+            <button class="pill"><span class="dot"></span> Team</button>
+            <button class="pill"><span class="dot"></span> Settings</button>
+         </div>
+      </section>
+
+      <!-- TEMPLATE 3: Sidebar navigation -->
+      <section class="demo tpl-3">
+         <aside class="sidebar">
+            <strong>Template 3 — sidebar</strong>
+            <p class="muted">Vertical navigation on the left — desktop style.</p>
+            <button>Overview</button>
+            <button>Analytics</button>
+            <button>Users</button>
+            <button>Messages</button>
+            <button>Integrations</button>
+            <button>Support</button>
+            <button>Sign out</button>
+         </aside>
+         <div class="content">
+            <h2 style="margin-top:0">Main content area</h2>
+            <p class="muted">This area shows where your page content will go. Buttons in the sidebar are standard HTML
+               &lt;button&gt; elements — attach JS listeners as needed.</p>
+         </div>
+      </section>
+
+      <!-- TEMPLATE 4: Card grid -->
+      <section class="demo tpl-4">
+         <strong>Template 4 — card grid</strong>
+         <p class="muted">Buttons inside cards — useful as a menu of features or quick actions.</p>
+         <div class="grid" style="margin-top:12px">
+            <button class="card-btn">Profile</button>
+            <button class="card-btn">Security</button>
+            <button class="card-btn">Billing</button>
+            <button class="card-btn">Notifications</button>
+            <button class="card-btn">API</button>
+            <button class="card-btn">Backup</button>
+            <button class="card-btn">Help</button>
+         </div>
+      </section>
+
+      <footer>Pick one, copy the HTML into your file, and add JS listeners (e.g.
+         document.querySelectorAll('button').forEach(b =&gt; b.addEventListener('click', ...))).</footer>
+   </main>
+
+   <!-- TEMPLATE 5: LAN MATCHING (Host / Join via a simple WebSocket signaling server) -->
+   <section class="demo tpl-5">
+      <strong>Template 5 — LAN matching UI (Host / Join)</strong>
+      <p class="muted">Client-side template that uses a WebSocket signaling server on your LAN. Copy the HTML/JS below
+         into a file and point <code>signalingServer</code> to a machine on your LAN running the minimal Node.js
+         signaling server included after the client code.</p>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;flex-direction:column;padding:12px">
+         <label class="muted">Signaling server (ws://IP:PORT)</label>
+         <input id="serverAddr" value="ws://192.168.1.100:3000"
+            style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.05);width:320px;background:transparent;color:inherit" />
+
+         <div style="display:flex;gap:8px">
+            <button id="hostBtn" class="btn">Host match</button>
+            <button id="joinBtn" class="btn">Join match</button>
+            <button id="stopBtn" class="btn">Stop</button>
+         </div>
+
+         <div class="muted" style="margin-top:8px">Status: <span id="status">idle</span></div>
+         <textarea id="log" readonly
+            style="width:100%;height:120px;background:#061226;color:var(--muted);border-radius:8px;padding:8px;border:1px solid rgba(255,255,255,0.02)"></textarea>
+      </div>
+
+      <pre class="muted" style="margin-top:8px">How it works (quick):
+1) Start the Node.js signaling server on one LAN machine.
+2) In the client HTML set the ws:// IP:PORT to that server.
+3) One machine clicks Host, the other clicks Join. The server forwards signaling messages so both clients establish a direct WebRTC peer connection (P2P) if allowed by network.
+</pre>
+
+      <script>
+         // Minimal client-side signaling + WebRTC peer connection
+         // NOTE: This code is a template — adapt to your app logic and security needs.
+         (function () {
+            const serverInput = document.getElementById('serverAddr');
+            const hostBtn = document.getElementById('hostBtn');
+            const joinBtn = document.getElementById('joinBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const status = document.getElementById('status');
+            const logEl = document.getElementById('log');
+
+            let ws = null;
+            let pc = null;
+            let isHost = false;
+
+            function log(s) {
+               logEl.value += s + '
+               '; logEl.scrollTop = logEl.scrollHeight }
+               function setStatus(s) { status.textContent = s; log('Status: ' + s) }
+
+               function connectWS() {
+                  const url = serverInput.value.trim();
+                  if (!url) return alert('Set signaling server address first');
+                  ws = new WebSocket(url);
+                  ws.onopen = () => setStatus('WS connected');
+                  ws.onclose = () => setStatus('WS closed');
+                  ws.onerror = (e) => log('WS error ' + e.message);
+                  ws.onmessage = async (ev) => {
+                     const msg = JSON.parse(ev.data);
+                     log('recv: ' + JSON.stringify(msg));
+                     if (msg.type === 'offer' && !isHost) {
+                        await ensurePC();
+                        await pc.setRemoteDescription(new RTCSessionDescription(msg.offer));
+                        const answer = await pc.createAnswer();
+                        await pc.setLocalDescription(answer);
+                        ws.send(JSON.stringify({ type: 'answer', answer }));
+                     } else if (msg.type === 'answer' && isHost) {
+                        await pc.setRemoteDescription(new RTCSessionDescription(msg.answer));
+                     } else if (msg.type === 'ice') {
+                        try { await pc.addIceCandidate(msg.candidate) } catch (e) { log('ice add err ' + e) }
+                     }
+                  }
+               }
+
+               async function ensurePC() {
+                  if (pc) return;
+                  pc = new RTCPeerConnection();
+                  // data channel for simple messages
+                  if (isHost) {
+                     const dc = pc.createDataChannel('match');
+                     dc.onopen = () => log('DataChannel open');
+                     dc.onmessage = e => log('peer: ' + e.data);
+                  } else {
+                     pc.ondatachannel = e => {
+                        const dc = e.channel;
+                        dc.onopen = () => log('DataChannel open (join)');
+                        dc.onmessage = evt => log('peer: ' + evt.data);
+                     }
+                  }
+                  pc.onicecandidate = e => {
+                     if (e.candidate && ws && ws.readyState === WebSocket.OPEN) {
+                        ws.send(JSON.stringify({ type: 'ice', candidate: e.candidate }));
+                     }
+                  }
+                  pc.onconnectionstatechange = () => log('PC state: ' + pc.connectionState);
+               }
+
+               hostBtn.addEventListener('click', async () => {
+                  isHost = true; connectWS(); await new Promise(r => setTimeout(r, 300)); // small wait for WS
+                  await ensurePC();
+                  const offer = await pc.createOffer();
+                  await pc.setLocalDescription(offer);
+                  ws.send(JSON.stringify({ type: 'offer', offer }));
+                  setStatus('hosting — offer sent');
+               });
+
+               joinBtn.addEventListener('click', async () => {
+                  isHost = false; connectWS(); await new Promise(r => setTimeout(r, 300));
+                  setStatus('waiting for offer...');
+               });
+
+               stopBtn.addEventListener('click', () => {
+                  if (pc) { pc.close(); pc = null }
+                  if (ws) { ws.close(); ws = null }
+                  setStatus('stopped');
+               });
+
+            }) ();
+      </script>
+
+      <h4 class="muted">Minimal Node.js signaling server (place on one LAN machine)</h4>
+      <pre style="background:#061226;padding:10px;border-radius:8px">// server.js
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({port:3000});
+
+wss.on('connection', function connection(ws){
+  ws.on('message', function incoming(message){
+    // broadcast the incoming message to all other clients
+    wss.clients.forEach(function each(client){
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(message);
+      }
+    });
+  });
+});
+
+console.log('Signaling server running on ws://0.0.0.0:3000');
+</pre>
+
+      <p class="muted">Notes:
+      <ul>
+         <li>This signaling server simply broadcasts between connected clients on the LAN. In production, add
+            authentication, rooms, and origin checks.</li>
+         <li>Browsers cannot perform raw LAN UDP broadcasts — that's why a tiny signaling server on the LAN is needed.
+         </li>
+         <li>If NAT or firewall prevents direct P2P, WebRTC will attempt relay via TURN (not provided here). For pure
+            LAN devices usually no TURN is required.</li>
+      </ul>
+      </p>
+   </section>
+
+</body>
+
+</html>
