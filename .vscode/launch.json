@@ -2,14 +2,34 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "(gdb) Launch C++ Agent",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/output/main.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/backend",
+      "environment": [],
+      "externalConsole": true,
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": ".",
-      "program": "build/Debug/outDebug",
+      "cwd": "c:/Users/Nguyen Thanh Dat/Documents/Project Socket Python Spyware/SpyWeb/backend",
+      "program": "c:/Users/Nguyen Thanh Dat/Documents/Project Socket Python Spyware/SpyWeb/backend/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
