@@ -9,21 +9,43 @@
 </head>
 
 <body>
-   <div class="container">
-      <div class="card">
-         <h1>LAN Match</h1>
-         <p class="desc">Connect two PCs on the same LAN. One hosts, one joins.</p>
 
-         <div class="buttons">
-            <button id="hostBtn">Host</button>
-            <button id="joinBtn">Join</button>
+   <div class="matchingPage" id="matchingPage">
+      <div class="container">
+         <div class="card">
+            <h1>LAN Match</h1>
+            <p class="desc">Connect two PCs on the same LAN. One hosts, one joins.</p>
+
+            <div class="buttons">
+               <button id="hostBtn">Host</button>
+               <button id="joinBtn">Join</button>
+            </div>
+
+            <div class="status">
+               Status: <span id="statusText">Idle</span>
+            </div>
+
+            <div class="log" id="logBox"></div>
+
+            <button id="nextBtn" class="primary-btn" disabled style="opacity: 0.5; margin-top: 15px;">Next</button>
          </div>
+      </div>
+   </div>
 
-         <div class="status">
-            Status: <span id="statusText">Idle</span>
+   <div class="menuPage" id="menuPage" style="display: none;">
+      <div class="container">
+         <div class="card">
+            <h3>Select Game Mode</h3>
+            <div class="menu-buttons">
+               <button>Deathmatch</button>
+               <button>Capture the Flag</button>
+               <button>King of the Hill</button>
+               <button>Infection</button>
+               <button>Duel</button>
+               <button>Custom</button>
+            </div>
+            <button id="backBtn">Go Back</button>
          </div>
-
-         <div class="log" id="logBox"></div>
       </div>
    </div>
 
